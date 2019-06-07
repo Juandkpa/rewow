@@ -19,8 +19,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('medicalRecords', 'MedicalRecordController@index');
+Route::middleware(['cors'])->group(
+    function($router) {
+        Route::get('medicalRecords', 'MedicalRecordController@index');
+        Route::get('medicalRecords/{medicalRecord}', 'MedicalRecordController@show');
+        Route::post('medicalRecords', 'MedicalRecordController@save');
+        Route::put('medicalRecords/{medicalRecord}', 'MedicalRecordController@update');
+        Route::delete('medicalRecords/{medicalRecord}', 'MedicalRecordController@delete');
+});
+    
+ 
+
+/*Route::get('medicalRecords', 'MedicalRecordController@index');
 Route::get('medicalRecords/{medicalRecord}', 'MedicalRecordController@show');
 Route::post('medicalRecords', 'MedicalRecordController@save');
 Route::put('medicalRecords/{medicalRecord}', 'MedicalRecordController@update');
-Route::delete('medicalRecords/{medicalRecord}', 'MedicalRecordController@delete');
+Route::delete('medicalRecords/{medicalRecord}', 'MedicalRecordController@delete');*/
